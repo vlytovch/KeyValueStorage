@@ -1,0 +1,27 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: webhook-service
+      namespace: system
+      path: /validate-teamdev-com-v1-keyvaluedata
+  failurePolicy: Fail
+  name: vkeyvaluedata.kb.io
+  rules:
+  - apiGroups:
+    - teamdev.com
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - keyvaluedata
+  sideEffects: None

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1eb1fa9c-7126-4033-be81-4586e5feed75" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/server/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/server/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/server/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/server/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mapStorage/map_storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/mapStorage/map_storage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mapStorage/map_storage_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/mapStorage/map_storage_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pair_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/server/pair_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/pair_controller_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/server/pair_controller_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/pair.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/storage/pair.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/storage/storage.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/storage/storage.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file:///usr/local/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="dev" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="vlytovch" />
+        <option name="repository" value="KeyValueStorage" />
+      </RepoCoordinatesHolder>
+    </option>
+  </component>
+  <component name="KubernetesApiPersistence">
+    <option name="context" value="arn:aws:eks:us-east-2:692314432491:cluster/siwarrie-fcn" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Equvk2Gr0FXjqJqThyTuvEaNCC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/vlytovch/workspace/cdo/KeyValueStorage&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server_module" />
+      <recent name="$PROJECT_DIR$/server_part" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/mapStorage" />
+      <recent name="$PROJECT_DIR$/storage" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Build.go build kube">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="KeyValueStorage" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build kube" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="KeyValueStorage" />
+      <working_directory value="$PROJECT_DIR$/kube" />
+      <kind value="PACKAGE" />
+      <package value="kube" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/kube/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestUpperCaseHandler in KeyValueStorage/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="KeyValueStorage" />
+      <working_directory value="$PROJECT_DIR$/server" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="KeyValueStorage/server" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUpperCaseHandler\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestUpperCaseHandler7 in KeyValueStorage/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="KeyValueStorage" />
+      <working_directory value="$PROJECT_DIR$/server" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="KeyValueStorage/server" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUpperCaseHandler7\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestUpperCaseHandler8 in KeyValueStorage/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="KeyValueStorage" />
+      <working_directory value="$PROJECT_DIR$/server" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="KeyValueStorage/server" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUpperCaseHandler8\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="KeyValueStorage" />
+      <working_directory value="$PROJECT_DIR$" />
+      <go_parameters value="-i" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go test KeyValueStorage/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="KeyValueStorage" />
+      <working_directory value="$PROJECT_DIR$/server" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="KeyValueStorage/server" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="KeyValueStorage" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="KeyValueStorage" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build kube" />
+        <item itemvalue="Go Test.go test KeyValueStorage/server" />
+        <item itemvalue="Go Test.TestUpperCaseHandler in KeyValueStorage/server" />
+        <item itemvalue="Go Test.TestUpperCaseHandler8 in KeyValueStorage/server" />
+        <item itemvalue="Go Test.TestUpperCaseHandler7 in KeyValueStorage/server" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1eb1fa9c-7126-4033-be81-4586e5feed75" name="Changes" comment="" />
+      <created>1663335670374</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1663335670374</updated>
+      <workItem from="1663335677530" duration="65507000" />
+      <workItem from="1663692529371" duration="171000" />
+      <workItem from="1663692719353" duration="84000" />
+      <workItem from="1663692858035" duration="52000" />
+      <workItem from="1663692924193" duration="250000" />
+      <workItem from="1663693243254" duration="33506000" />
+    </task>
+    <task id="LOCAL-00001" summary=".gitignore generated">
+      <created>1663578226848</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1663578226848</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add storage interface, map storage impl, pair data object, pair requests handler">
+      <created>1663578581088</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1663578581088</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add test for map storage, docker file, readme with rest spec">
+      <created>1663578618379</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1663578618379</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Rename controller file">
+      <created>1663578655865</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1663578655865</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add pair controller test">
+      <created>1663587066991</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1663587066991</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="dev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value=".gitignore generated" />
+    <MESSAGE value="Add storage interface, map storage impl, pair data object, pair requests handler" />
+    <MESSAGE value="Add test for map storage, docker file, readme with rest spec" />
+    <MESSAGE value="Rename controller file" />
+    <MESSAGE value="Add pair controller test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add pair controller test" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/server/mapStorage/map_storage.go</url>
+          <line>27</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
