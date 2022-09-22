@@ -1,0 +1,24 @@
+# permissions for end users to edit keyvaluedata.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: keyvaluedata-editor-role
+rules:
+- apiGroups:
+  - teamdev.com
+  resources:
+  - keyvaluedata
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - teamdev.com
+  resources:
+  - keyvaluedata/status
+  verbs:
+  - get
