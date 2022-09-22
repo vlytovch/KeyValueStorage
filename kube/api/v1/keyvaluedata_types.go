@@ -34,7 +34,7 @@ type KeyValueDataCondition struct {
 	// Type of ClientlessAccessGateway condition.
 	Type KeyValueDataConditionType `json:"type"`
 	// Status of the condition, one of True, False, Unknown.
-	core.ConditionStatus `json:"status"`
+	Status core.ConditionStatus `json:"status"`
 	// The last time this condition was updated.
 	LastUpdateTime metav1.Time `json:"lastUpdateTime,omitempty"`
 	// The reason for the condition's last transition.
@@ -76,6 +76,24 @@ type KeyValueDataList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
 	Items           []KeyValueData `json:"items"`
+}
+
+func (cs *KeyValueDataStatus) HasCondition(conditionType KeyValueDataConditionType) (bool, int) {
+	for index, condition := range cs.Conditions {
+		if condition.Type == conditionType {
+			return true, index
+		}
+	}
+	return false, -1
+}
+
+func (cs *KeyValueDataStatus) AddCondition(condition KeyValueDataCondition) {
+	has, index := cs.HasCondition(condition.Type)
+	if has {
+		cs.Conditions[index] = condition
+	} else {
+		cs.Conditions = append(cs.Conditions, condition)
+	}
 }
 
 func init() {

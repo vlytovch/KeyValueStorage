@@ -20,11 +20,12 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"io"
 	v1 "k8s.io/api/core/v1"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 	"k8s.io/apimachinery/pkg/util/json"
-	"k8s.io/utils/strings/slices"
 	teamdevcomv1 "kube/api/v1"
 	"net/http"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -55,6 +56,11 @@ type pair struct {
 	Value string `json:"value"`
 }
 
+type serverError struct {
+	Key     string `json:"key"`
+	Message string `json:"message"`
+}
+
 func (r *KeyValueDataReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	var (
 		host             string
@@ -81,46 +87,93 @@ func (r *KeyValueDataReconciler) Reconcile(ctx context.Context, req ctrl.Request
 
 	r.Client.Get(ctx, req.NamespacedName, &modifiedResource)
 
-	persistedKeys := r.getPersistedKeys(modifiedResource)
-	persistedKeys = r.deleteKeysRemovedFromResource(persistedKeys, modifiedResource, host)
-	persistedKeys = r.updateAndCreateKeysFromResource(persistedKeys, modifiedResource, host)
-	var status = teamdevcomv1.KeyValueDataStatus{
-		KeysInStorage: persistedKeys,
+	deleteServerErrors, err := r.deleteKeysRemovedFromResource(modifiedResource.Status.KeysInStorage, modifiedResource, host)
+	if err != nil {
+		return ctrl.Result{}, err
 	}
-	modifiedResource.Status = status
-	r.Status().Update(ctx, &modifiedResource)
+	putServerErrors, err := r.updateAndCreateKeysFromResource(modifiedResource, host)
+	if err != nil {
+		return ctrl.Result{}, err
+	}
+	if err := r.UpdateStatus(ctx, modifiedResource, append(putServerErrors, deleteServerErrors...), host); err != nil {
+		return ctrl.Result{}, err
+	}
 	return ctrl.Result{}, nil
 }
 
-func (r *KeyValueDataReconciler) updateAndCreateKeysFromResource(persistedKeys []string, modifiedResource teamdevcomv1.KeyValueData, host string) []string {
+func (r *KeyValueDataReconciler) UpdateStatus(ctx context.Context, modifiedResource teamdevcomv1.KeyValueData, serverErrors []serverError, host string) error {
+	var condition teamdevcomv1.KeyValueDataCondition
+
+	var persistedKeys []string
+	for key := range modifiedResource.Spec.Data {
+		resp, err := httpClient.Get(fmt.Sprintf(pairsByKeyEndpointPattern, host, key))
+		if err == nil && resp.StatusCode == 200 {
+			persistedKeys = append(persistedKeys, key)
+		}
+	}
+
+	if len(serverErrors) != 0 {
+		errMessages, err := json.Marshal(serverErrors)
+		if err != nil {
+			return err
+		}
+		condition = teamdevcomv1.KeyValueDataCondition{
+			Type:           teamdevcomv1.KeyValueDataAdded,
+			Status:         v1.ConditionFalse,
+			LastUpdateTime: metav1.Now(),
+			Reason:         "BadServerResponse",
+			Message:        string(errMessages),
+		}
+	} else {
+		condition = teamdevcomv1.KeyValueDataCondition{
+			Type:           teamdevcomv1.KeyValueDataAdded,
+			Status:         v1.ConditionTrue,
+			LastUpdateTime: metav1.Now(),
+		}
+	}
+	modifiedResource.Status.AddCondition(condition)
+	modifiedResource.Status.KeysInStorage = persistedKeys
+	if err := r.Client.Status().Update(ctx, &modifiedResource); err != nil {
+		return fmt.Errorf("failed to update object with name %s: %w", modifiedResource.Name, err)
+	}
+	return nil
+}
+
+func (r *KeyValueDataReconciler) updateAndCreateKeysFromResource(modifiedResource teamdevcomv1.KeyValueData, host string) ([]serverError, error) {
+	var serverErrors []serverError
 	for key, value := range modifiedResource.Spec.Data {
 		var body, _ = json.Marshal(pair{Key: key, Value: value})
 		var putRequest, _ = http.NewRequest("PUT", fmt.Sprintf(pairsEndpointPattern, host), bytes.NewReader(body))
 		putRequest.Header.Set("Content-Type", "application/json; charset=utf-8")
 		putResp, err := httpClient.Do(putRequest)
-		if err == nil {
-			if putResp.StatusCode == 201 {
-				persistedKeys = append(persistedKeys, key)
-			}
+		if err != nil {
+			return serverErrors, err
+		}
+		if putResp.StatusCode != 201 && putResp.StatusCode != 200 {
+			var body, _ = io.ReadAll(putResp.Body)
+			serverErrors = append(serverErrors, serverError{Key: key, Message: string(body)})
 		}
 	}
-	return persistedKeys
+	return serverErrors, nil
 }
 
-func (r *KeyValueDataReconciler) deleteKeysRemovedFromResource(persistedKeys []string, modifiedResource teamdevcomv1.KeyValueData, host string) []string {
+func (r *KeyValueDataReconciler) deleteKeysRemovedFromResource(persistedKeys []string, modifiedResource teamdevcomv1.KeyValueData, host string) ([]serverError, error) {
+	var serverErrors []serverError
 	for _, key := range persistedKeys {
 		_, exists := modifiedResource.Spec.Data[key]
 		if !exists {
 			var deleteRequest, _ = http.NewRequest("DELETE", fmt.Sprintf(pairsByKeyEndpointPattern, host, key), nil)
-			deleteResp, err := httpClient.Do(deleteRequest)
-			if err == nil && deleteResp.StatusCode == 200 {
-				persistedKeys = slices.Filter(nil, persistedKeys, func(s string) bool {
-					return s != key
-				})
+			resp, err := httpClient.Do(deleteRequest)
+			if err != nil {
+				return serverErrors, err
+			}
+			if resp.StatusCode != 200 {
+				var body, _ = io.ReadAll(resp.Body)
+				serverErrors = append(serverErrors, serverError{Key: key, Message: string(body)})
 			}
 		}
 	}
-	return persistedKeys
+	return serverErrors, nil
 }
 
 func (r *KeyValueDataReconciler) getPersistedKeys(modifiedResource teamdevcomv1.KeyValueData) []string {

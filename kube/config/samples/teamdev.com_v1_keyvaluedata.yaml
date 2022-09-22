@@ -1,7 +1,7 @@
 apiVersion: teamdev.com/v1
 kind: KeyValueData
 metadata:
-  name: keyvaluedata-sample332
+  name: keyvaluedata-sample331
 spec:
   data:
-    a: "as"
+    a: "a"
