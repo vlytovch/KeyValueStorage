@@ -34,7 +34,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
 )
 
-var httpClient = &http.Client{}
 var myFinalizerName = "teamdev.com.keyvaluedata/finalizer"
 var pairsEndpointPattern = "http://%s/pairs"
 var pairsByKeyEndpointPattern = pairsEndpointPattern + "/%s"
@@ -42,7 +41,8 @@ var pairsByKeyEndpointPattern = pairsEndpointPattern + "/%s"
 // KeyValueDataReconciler reconciles a KeyValueData object
 type KeyValueDataReconciler struct {
 	client.Client
-	Scheme *runtime.Scheme
+	Scheme     *runtime.Scheme
+	HttpClient *http.Client
 }
 
 //+kubebuilder:rbac:groups=teamdev.com,resources=keyvaluedata,verbs=get;list;watch;create;update;patch;delete
@@ -76,8 +76,8 @@ func (r *KeyValueDataReconciler) Reconcile(ctx context.Context, req ctrl.Request
 	}
 	host = service.Spec.ClusterIP + ":" + port
 
-	isBeingDeleted := modifiedResource.ObjectMeta.DeletionTimestamp.IsZero()
-	if isBeingDeleted {
+	isNotBeingDeleted := modifiedResource.ObjectMeta.DeletionTimestamp.IsZero()
+	if isNotBeingDeleted {
 		if result, err := r.registerFinalizer(ctx, modifiedResource); err != nil {
 			return result, err
 		}
@@ -85,7 +85,9 @@ func (r *KeyValueDataReconciler) Reconcile(ctx context.Context, req ctrl.Request
 		return r.processDeletionAndRemoveFinalizer(ctx, modifiedResource, host)
 	}
 
-	r.Client.Get(ctx, req.NamespacedName, &modifiedResource)
+	if err := r.Client.Get(ctx, req.NamespacedName, &modifiedResource); err != nil {
+		return ctrl.Result{}, err
+	}
 
 	deleteServerErrors, err := r.deleteKeysRemovedFromResource(modifiedResource.Status.KeysInStorage, modifiedResource, host)
 	if err != nil {
@@ -106,7 +108,7 @@ func (r *KeyValueDataReconciler) UpdateStatus(ctx context.Context, modifiedResou
 
 	var persistedKeys []string
 	for key := range modifiedResource.Spec.Data {
-		resp, err := httpClient.Get(fmt.Sprintf(pairsByKeyEndpointPattern, host, key))
+		resp, err := r.HttpClient.Get(fmt.Sprintf(pairsByKeyEndpointPattern, host, key))
 		if err == nil && resp.StatusCode == 200 {
 			persistedKeys = append(persistedKeys, key)
 		}
@@ -145,7 +147,7 @@ func (r *KeyValueDataReconciler) updateAndCreateKeysFromResource(modifiedResourc
 		var body, _ = json.Marshal(pair{Key: key, Value: value})
 		var putRequest, _ = http.NewRequest("PUT", fmt.Sprintf(pairsEndpointPattern, host), bytes.NewReader(body))
 		putRequest.Header.Set("Content-Type", "application/json; charset=utf-8")
-		putResp, err := httpClient.Do(putRequest)
+		putResp, err := r.HttpClient.Do(putRequest)
 		if err != nil {
 			return serverErrors, err
 		}
@@ -163,7 +165,7 @@ func (r *KeyValueDataReconciler) deleteKeysRemovedFromResource(persistedKeys []s
 		_, exists := modifiedResource.Spec.Data[key]
 		if !exists {
 			var deleteRequest, _ = http.NewRequest("DELETE", fmt.Sprintf(pairsByKeyEndpointPattern, host, key), nil)
-			resp, err := httpClient.Do(deleteRequest)
+			resp, err := r.HttpClient.Do(deleteRequest)
 			if err != nil {
 				return serverErrors, err
 			}
@@ -188,11 +190,11 @@ func (r *KeyValueDataReconciler) getPersistedKeys(modifiedResource teamdevcomv1.
 
 func (r *KeyValueDataReconciler) processDeletionAndRemoveFinalizer(ctx context.Context, modifiedResource teamdevcomv1.KeyValueData, host string) (ctrl.Result, error) {
 	if controllerutil.ContainsFinalizer(&modifiedResource, myFinalizerName) {
-		if err := r.DeleteAssociatedPairsFromServer(modifiedResource, host); err != nil {
+		if err := r.deleteAssociatedPairsFromServer(modifiedResource, host); err != nil {
 			return ctrl.Result{}, err
 		}
 		controllerutil.RemoveFinalizer(&modifiedResource, myFinalizerName)
-		if err := r.Update(ctx, &modifiedResource); err != nil {
+		if err := r.Client.Update(ctx, &modifiedResource); err != nil {
 			return ctrl.Result{}, err
 		}
 	}
@@ -202,17 +204,17 @@ func (r *KeyValueDataReconciler) processDeletionAndRemoveFinalizer(ctx context.C
 func (r *KeyValueDataReconciler) registerFinalizer(ctx context.Context, modifiedResource teamdevcomv1.KeyValueData) (ctrl.Result, error) {
 	if !controllerutil.ContainsFinalizer(&modifiedResource, myFinalizerName) {
 		controllerutil.AddFinalizer(&modifiedResource, myFinalizerName)
-		if err := r.Update(ctx, &modifiedResource); err != nil {
+		if err := r.Client.Update(ctx, &modifiedResource); err != nil {
 			return ctrl.Result{}, err
 		}
 	}
 	return ctrl.Result{}, nil
 }
 
-func (r *KeyValueDataReconciler) DeleteAssociatedPairsFromServer(data teamdevcomv1.KeyValueData, host string) error {
+func (r *KeyValueDataReconciler) deleteAssociatedPairsFromServer(data teamdevcomv1.KeyValueData, host string) error {
 	for _, key := range data.Status.KeysInStorage {
 		var deleteRequest, _ = http.NewRequest("DELETE", fmt.Sprintf(pairsByKeyEndpointPattern, host, key), nil)
-		_, err := httpClient.Do(deleteRequest)
+		_, err := r.HttpClient.Do(deleteRequest)
 		if err != nil {
 			return err
 		}

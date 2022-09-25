@@ -44,16 +44,16 @@ var _ webhook.Validator = &KeyValueData{}
 // ValidateCreate implements webhook.Validator so a webhook will be registered for the type
 func (r *KeyValueData) ValidateCreate() error {
 	keyvaluedatalog.Info("validate create", "name", r.Name)
-	return r.ValidatePairsUniqueness()
+	return r.validatePairsUniqueness()
 }
 
 // ValidateUpdate implements webhook.Validator so a webhook will be registered for the type
-func (r *KeyValueData) ValidateUpdate(old runtime.Object) error {
+func (r *KeyValueData) ValidateUpdate(runtime.Object) error {
 	keyvaluedatalog.Info("validate update", "name", r.Name)
-	return r.ValidatePairsUniqueness()
+	return r.validatePairsUniqueness()
 }
 
-func (r *KeyValueData) ValidatePairsUniqueness() error {
+func (r *KeyValueData) validatePairsUniqueness() error {
 	var persistedKeyValueResources KeyValueDataList
 	if err := k8sClient.List(context.TODO(), &persistedKeyValueResources, client.InNamespace(r.Namespace)); err != nil {
 		keyvaluedatalog.Error(err, "error getting the KeyValueData object")
@@ -67,7 +67,7 @@ func (r *KeyValueData) ValidatePairsUniqueness() error {
 				continue
 			}
 			if _, existingItemHasKey := item.Spec.Data[keys]; existingItemHasKey {
-				return fmt.Errorf("KevValueData resource containing %q already exists [%q]", keys, item.Name)
+				return fmt.Errorf("KeyValueData resource containing %q already exists [%q]", keys, item.Name)
 			}
 		}
 	}

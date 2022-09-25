@@ -17,6 +17,7 @@ limitations under the License.
 package controllers
 
 import (
+	"github.com/jarcoal/httpmock"
 	"path/filepath"
 	"testing"
 
@@ -50,6 +51,8 @@ func TestAPIs(t *testing.T) {
 		[]Reporter{printer.NewlineReporter{}})
 }
 
+var keyValueScheme = scheme.Scheme
+
 var _ = BeforeSuite(func() {
 	logf.SetLogger(zap.New(zap.WriteTo(GinkgoWriter), zap.UseDevMode(true)))
 
@@ -65,14 +68,15 @@ var _ = BeforeSuite(func() {
 	Expect(err).NotTo(HaveOccurred())
 	Expect(cfg).NotTo(BeNil())
 
-	err = teamdevcomv1.AddToScheme(scheme.Scheme)
+	err = teamdevcomv1.AddToScheme(keyValueScheme)
 	Expect(err).NotTo(HaveOccurred())
 
 	//+kubebuilder:scaffold:scheme
 
-	k8sClient, err = client.New(cfg, client.Options{Scheme: scheme.Scheme})
+	k8sClient, err = client.New(cfg, client.Options{Scheme: keyValueScheme})
 	Expect(err).NotTo(HaveOccurred())
 	Expect(k8sClient).NotTo(BeNil())
+	httpmock.Activate()
 
 }, 60)
 

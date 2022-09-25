@@ -6,11 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="1eb1fa9c-7126-4033-be81-4586e5feed75" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kube/api/v1/keyvaluedata_types.go" beforeDir="false" afterPath="$PROJECT_DIR$/kube/api/v1/keyvaluedata_types.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kube/config/samples/teamdev.com_v1_keyvaluedata.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/kube/config/samples/teamdev.com_v1_keyvaluedata.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kube/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/kube/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kube/api/v1/keyvaluedata_webhook.go" beforeDir="false" afterPath="$PROJECT_DIR$/kube/api/v1/keyvaluedata_webhook.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kube/api/v1/webhook_suite_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kube/api/v1/webhook_suite_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kube/controllers/keyvaluedata_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/kube/controllers/keyvaluedata_controller.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kube/controllers/suite_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/kube/controllers/suite_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kube/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/kube/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/kube/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/kube/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kube/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/kube/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +45,9 @@
       </RepoCoordinatesHolder>
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/go/pkg/mod/pkg/mod/sigs.k8s.io/controller-runtime@v0.12.2/pkg/client/fake/client.go" root0="SKIP_INSPECTION" />
+  </component>
   <component name="KubernetesApiPersistence">
     <option name="context" value="arn:aws:eks:us-east-2:692314432491:cluster/siwarrie-fcn" />
   </component>
@@ -62,6 +68,7 @@
     &quot;RunOnceActivity.go.format.on.save.advertiser.fired&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/vlytovch/workspace/cdo/KeyValueStorage&quot;,
@@ -84,7 +91,7 @@
       <recent name="$PROJECT_DIR$/storage" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.go test kube/controllers">
+  <component name="RunManager" selected="Go Test.go test kube/api/v1">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="KeyValueStorage" />
       <working_directory value="$PROJECT_DIR$" />
@@ -115,18 +122,6 @@
       <pattern value="^\QTestUpperCaseHandler\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestUpperCaseHandler8 in KeyValueStorage/server" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="KeyValueStorage" />
-      <working_directory value="$PROJECT_DIR$/server" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="KeyValueStorage/server" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestUpperCaseHandler8\E$" />
-      <method v="2" />
-    </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
       <module name="KeyValueStorage" />
       <working_directory value="$PROJECT_DIR$" />
@@ -148,6 +143,17 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
+    <configuration name="go test kube/api/v1" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="KeyValueStorage" />
+      <working_directory value="$PROJECT_DIR$/kube/api/v1" />
+      <root_directory value="$PROJECT_DIR$/kube" />
+      <kind value="PACKAGE" />
+      <package value="kube/api/v1" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
     <configuration name="go test kube/controllers" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="KeyValueStorage" />
       <working_directory value="$PROJECT_DIR$/kube/controllers" />
@@ -159,26 +165,13 @@
       <framework value="gotest" />
       <method v="2" />
     </configuration>
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="KeyValueStorage" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="KeyValueStorage" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.go test kube/api/v1" />
         <item itemvalue="Go Test.go test kube/controllers" />
         <item itemvalue="Go Build.go build kube" />
         <item itemvalue="Go Test.go test KeyValueStorage/server" />
         <item itemvalue="Go Test.TestUpperCaseHandler in KeyValueStorage/server" />
-        <item itemvalue="Go Test.TestUpperCaseHandler8 in KeyValueStorage/server" />
       </list>
     </recent_temporary>
   </component>
@@ -195,7 +188,17 @@
       <workItem from="1663692719353" duration="84000" />
       <workItem from="1663692858035" duration="52000" />
       <workItem from="1663692924193" duration="250000" />
-      <workItem from="1663693243254" duration="53398000" />
+      <workItem from="1663693243254" duration="57072000" />
+      <workItem from="1663875283054" duration="150000" />
+      <workItem from="1663876303582" duration="66000" />
+      <workItem from="1663876380968" duration="81000" />
+      <workItem from="1663876473067" duration="39000" />
+      <workItem from="1663876519734" duration="41000" />
+      <workItem from="1663876566489" duration="217000" />
+      <workItem from="1663876796474" duration="40000" />
+      <workItem from="1663876857988" duration="86000" />
+      <workItem from="1663877079380" duration="14377000" />
+      <workItem from="1663945738992" duration="36571000" />
     </task>
     <task id="LOCAL-00001" summary=".gitignore generated">
       <created>1663578226848</created>
@@ -246,7 +249,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663777094850</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add status update">
+      <created>1663861794332</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1663861794333</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -283,7 +293,8 @@
     <MESSAGE value="Add pair controller test" />
     <MESSAGE value="Move server to separate submodule" />
     <MESSAGE value="Add kubernates module" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add kubernates module" />
+    <MESSAGE value="Add status update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add status update" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -295,6 +306,46 @@
           <url>file://$PROJECT_DIR$/server/mapStorage/map_storage.go</url>
           <line>27</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kube/controllers/keyvaluedata_controller_test.go</url>
+          <line>224</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kube/controllers/keyvaluedata_controller.go</url>
+          <line>79</line>
+          <option name="timeStamp" value="56" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kube/controllers/keyvaluedata_controller.go</url>
+          <line>84</line>
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kube/controllers/keyvaluedata_controller.go</url>
+          <line>191</line>
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kube/controllers/keyvaluedata_controller.go</url>
+          <line>193</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kube/controllers/keyvaluedata_controller.go</url>
+          <line>197</line>
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kube/controllers/keyvaluedata_controller.go</url>
+          <line>214</line>
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/kube/api/v1/keyvaluedata_webhook.go</url>
+          <line>56</line>
+          <option name="timeStamp" value="65" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
