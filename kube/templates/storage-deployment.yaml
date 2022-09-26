@@ -1,7 +1,15 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: storage
+  labels:
+    name: storage
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: storage-deployment
+  namespace: storage
   labels:
     app: storage
 spec:

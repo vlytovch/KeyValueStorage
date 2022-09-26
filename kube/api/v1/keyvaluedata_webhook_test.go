@@ -41,7 +41,7 @@ var _ = Describe("KeyValueData Test", func() {
 			keyValueDataToValidate := getKeyValueDataObject()
 			keyValueDataToValidate.Name = "another-keyvalue-name"
 			err := keyValueDataToValidate.ValidateCreate()
-			Expect(err).To(MatchError("KeyValueData resource containing \"1key1\" already exists [\"keyvalue-name\"]"))
+			Expect(err.Error()).To(MatchRegexp("KeyValueData resource containing .+ already exists \\[\"keyvalue-name\"]"))
 		})
 
 		It("update validation should not fail while comparing existing and updated keyvaluedata with equal names", func() {
@@ -56,7 +56,7 @@ var _ = Describe("KeyValueData Test", func() {
 			newKeyValueData.Name = "another-name"
 			Expect(k8sClient.Create(context.TODO(), &newKeyValueData)).To(Succeed())
 			err := keyValueData.ValidateUpdate(nil)
-			Expect(err).To(MatchError("KeyValueData resource containing \"1key1\" already exists [\"another-name\"]"))
+			Expect(err.Error()).To(MatchRegexp("KeyValueData resource containing .+ already exists \\[\"another-name\"]"))
 		})
 
 		It("delete validation should not do anything", func() {
