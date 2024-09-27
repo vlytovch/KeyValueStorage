@@ -1,7 +1,9 @@
 // Package mapStorage is an implementation of key value storage that persists the data in a map
 package mapStorage
 
-import "KeyValueStorage/storage"
+import (
+	"KeyValueStorage/storage"
+)
 
 // MapStorage holds a map object for persisting key-value pairs inside.
 // It is supplied with generics so any comparable type can be provided for key and value.
